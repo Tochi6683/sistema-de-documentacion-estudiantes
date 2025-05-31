@@ -1,0 +1,141 @@
+// Configuración para MySQL/phpMyAdmin
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model Student {
+  id              String    @id @default(cuid())
+  nombre          String
+  apellido        String
+  email           String    @unique
+  telefono        String?
+  carrera         String
+  semestre        Int
+  fechaNacimiento DateTime?
+  direccion       String?
+  cedula          String    @unique
+  estado          String    @default("Activo")
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
+
+  // Relaciones
+  documentos      Document[]
+  procesos        StudentProcess[]
+
+  @@map("students")
+}
+
+model Document {
+  id          String   @id @default(cuid())
+  titulo      String
+  tipo        String   // "identidad", "academico", "medico", "financiero", "legal", "otros"
+  descripcion String?
+  archivo     String?
+  estado      String   @default("Pendiente") // "Pendiente", "Aprobado", "Rechazado"
+  studentId   String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  // Relaciones
+  student     Student  @relation(fields: [studentId], references: [id], onDelete: Cascade)
+
+  @@map("documents")
+}
+
+model AcademicProcess {
+  id          String   @id @default(cuid())
+  nombre      String
+  descripcion String?
+  fechaInicio DateTime
+  fechaFin    DateTime
+  estado      String   @default("Planificado") // "Planificado", "Activo", "Completado", "Cancelado"
+  semestre    String
+  tipo        String   @default("Proceso") // "Proceso", "Evaluacion", "Evento"
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  // Relaciones
+  estudiantes StudentProcess[]
+
+  @@map("academic_processes")
+}
+
+model StudentProcess {
+  id        String   @id @default(cuid())
+  studentId String
+  processId String
+  estado    String   @default("Inscrito") // "Inscrito", "En Progreso", "Completado", "Retirado"
+  nota      Float?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Relaciones
+  student   Student          @relation(fields: [studentId], references: [id], onDelete: Cascade)
+  process   AcademicProcess  @relation(fields: [processId], references: [id], onDelete: Cascade)
+
+  @@unique([studentId, processId])
+  @@map("student_processes")
+}
+
+model Schedule {
+  id          String   @id @default(cuid())
+  titulo      String
+  descripcion String?
+  fechaInicio DateTime
+  fechaFin    DateTime
+  tipo        String   // "Academico", "Administrativo", "Evaluacion", "Receso", "Evento"
+  color       String   @default("#3b82f6")
+  estado      String   @default("Programado") // "Programado", "En Curso", "Completado", "Cancelado"
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@map("schedules")
+}
+
+model Mockup {
+  id          String   @id @default(cuid())
+  titulo      String
+  descripcion String?
+  categoria   String   // "Dashboard", "Formulario", "Reporte", "Interfaz"
+  archivo     String?
+  estado      String   @default("Borrador") // "Borrador", "Revision", "Aprobado", "Implementado"
+  version     String   @default("1.0")
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@map("mockups")
+}
+
+model DocumentationStudy {
+  id          String   @id @default(cuid())
+  titulo      String
+  descripcion String?
+  tipo        String   // "Analisis", "Estadistica", "Tendencia", "Reporte"
+  resultado   String?  @db.Text
+  estado      String   @default("En Progreso") // "En Progreso", "Completado", "Archivado"
+  fechaInicio DateTime @default(now())
+  fechaFin    DateTime?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@map("documentation_studies")
+}
+
+model ProcessAnalysis {
+  id          String   @id @default(cuid())
+  titulo      String
+  descripcion String?
+  tipo        String   // "Rendimiento", "Estadistica", "Tendencia", "Comparativo"
+  datos       String?  @db.Text // JSON con los datos del análisis
+  resultado   String?  @db.Text
+  estado      String   @default("En Progreso")
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@map("process_analysis")
+}
