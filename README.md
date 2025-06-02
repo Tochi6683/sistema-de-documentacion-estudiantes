@@ -186,3 +186,4 @@ npm run setup         # Instalar + configurar todo
 4. **Inicia**: `npm run dev`
 
 **¡TODOS los formularios guardan datos, TODAS las listas muestran información real, y TODOS los botones funcionan perfectamente!** 🎉
+  
