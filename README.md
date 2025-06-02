@@ -186,4 +186,6 @@ npm run setup         # Instalar + configurar todo
 4. **Inicia**: `npm run dev`
 
 **¡TODOS los formularios guardan datos, TODAS las listas muestran información real, y TODOS los botones funcionan perfectamente!** 🎉
-  
+
+**¡sistema-de-documentacion-estudiante.vercel.app, https://github.com/Tochi6683/sistema-de-documentacion-estudiantes.git, sistema-de-documentacion-estudiantes-git-main-jhon3.vercel.app, sistema-de-documentacion-estudiantes-inqcl3dri-jhon3.vercel.app,!** 🎉
+
