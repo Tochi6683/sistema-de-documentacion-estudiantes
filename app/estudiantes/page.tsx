@@ -34,7 +34,7 @@ export default function EstudiantesPage() {
     <div className="space-y-8">
       <div>
         <h1 className="text-3xl font-bold mb-2">Ingreso de Estudiantes</h1>
-        <p className="text-muted-foreground">Registra y gestiona la información de los estudiantes del sistema.</p>
+        <p className="text-muted-foreground">Registra y gestiona la información de los estudiantes en el sistema.</p>
       </div>
 
       <div className="grid lg:grid-cols-2 gap-8">
