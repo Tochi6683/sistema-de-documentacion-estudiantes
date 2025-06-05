@@ -50,7 +50,7 @@ export default function MockupForm() {
     <Card className="w-full">
       <CardHeader>
         <CardTitle>Crear Mockup</CardTitle>
-        <CardDescription>Completa el formulario para crear un nuevo mockup del sistema.</CardDescription>
+        <CardDescription>Complete el formulario para crear un nuevo mockup del sistema.</CardDescription>
       </CardHeader>
       <form id="mockup-form" action={handleSubmit}>
         <CardContent className="space-y-6">
@@ -87,7 +87,7 @@ export default function MockupForm() {
             <Textarea
               id="descripcion"
               name="descripcion"
-              placeholder="Descripción del mockup"
+              placeholder="Descripcion del mockup"
               className="min-h-[80px]"
             />
           </div>
